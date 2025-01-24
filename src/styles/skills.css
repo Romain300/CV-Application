@@ -1,0 +1,24 @@
+.add-button {
+    border: none;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+button {
+    transition: transform 250ms ease-in-out;
+}
+
+.delete-edit-div,
+.delete-save-div {
+    display: flex;
+    gap: 1rem;
+}
+
+.delete-save-div {
+    justify-content: center;
+    
+}

@@ -1,0 +1,33 @@
+button {
+    padding: 0.3rem;
+    color: white;
+    border: none;
+    font-size: 0.8rem;
+    transition: transform 250ms ease-in-out;
+    width: 3rem;
+}
+
+.save-task {
+background-color: #28a745;
+}
+
+.edit-task {
+background-color: #007BFF;
+}
+
+.delete-task {
+background-color: #dc3545;
+}
+
+.delete-save-div-task {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.3rem;
+}
+
+.delete-edit-div-task {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.3rem;
+    
+}
