@@ -41,71 +41,149 @@
 }
 
 .surname {
+
     font-weight: 400;
 }
 
 .contact,
 .skills-div,
 .educations-div {
+
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+
 }
 
 .info-title,
 .edu-degree {
+
     color: white;
     margin-top: 0.5rem;
     font-size: 0.8rem;
+
 }
 
 .info,
 .education-list {
+
     font-size: 0.8rem;
+
 }
 
 .title,
 .info {
+
     color: #7F8C8D;
+
 }
 
 .title {
+
     font-family: monospace;
     font-size: 1rem;
+
 }
 
 .contact-skills-edu {
+
     background-color: #1A2A3A;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
 }
 
 
-.skill {
-    color: #7F8C8D;
+.skill,
+.work {
+
     font-size: 0.8rem;
     margin-top: 0.5rem;
+
+}
+
+.skill {
+
+    color: #7F8C8D;
+
 }
 
 .education-list {
+
     color: #7F8C8D;
+
 }
 
 .profil-workxp {
+
     padding: 2rem;
     display: flex;
     flex-direction: column;
     color: #4B4B4B;
+    gap: 3rem;
+
 }
 
-.profil .title {
+.profil-workxp .title {
+
     color: #4B4B4B;
+
 }
 
 .statement {
+
     font-size: 0.8rem;
     margin-top: 1rem;
+
 }
 
+.work-position {
+
+    color: #1A2A3A;
+    font-weight: 500;
+
+}
+
+.work {
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+
+}
+
+.work-list {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+
+}
+
+li {
+
+    list-style-position:inside;
+
+}
+
+.workxp {
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+}
+
+
+@media (max-width: 768px) {
+    .main-container {
+        grid-template-columns: 1fr; 
+        grid-template-rows: auto; 
+        width: 100%; 
+        height: auto; 
+        margin-top: 1rem;
+    }
+}

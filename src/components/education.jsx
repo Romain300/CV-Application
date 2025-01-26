@@ -1,11 +1,10 @@
-import '../styles/education.css';
 import { useState } from 'react';
 import { Button, Input } from "./contact.jsx";
 import addLogo from '../../public/add.svg';
 
 
 
-export function Education() {
+function Education({ onSave }) {
 
     const [eduData, setEduData] = useState([
 
@@ -22,29 +21,54 @@ export function Education() {
 
     const addEdu = () => {
 
-        setEduData((prev) => ([...prev, {
+        setEduData((prev) => {
 
-            id: crypto.randomUUID(),
-            school: "",
-            location: "",
-            degree: "",
-            from: "",
-            to: "",
+            const newList = [...prev, {
 
-        }]))
+                id: crypto.randomUUID(),
+                school: "",
+                location: "",
+                degree: "",
+                from: "",
+                to: "",
+    
+            }];
+
+            onSave(newList);
+
+            return (newList);
+
+        });
+        
     };
 
     const deleteEdu = (id) => {
 
-        setEduData((prev) => (prev.filter((edu) => edu.id !== id)))
+        setEduData((prev) => {
 
-    }
+            const newList = prev.filter((edu) => edu.id !== id);
+
+            onSave(newList);
+
+            return (newList);
+
+        });
+
+    };
 
     const updateEdu = (id, event) => {
 
         const newData = event.target.value;
         const idTarget = event.target.id.split("&")[1]; //splititng Id to match with the object 
-        setEduData((prev) => (prev.map((edu) => edu.id === id ? {...edu, [idTarget]: newData} : edu)));
+
+        setEduData((prev) => {
+
+            const newList = prev.map((edu) => edu.id === id ? {...edu, [idTarget]: newData} : edu);
+            onSave(newList);
+
+            return newList;
+
+        });
  
     };
 
@@ -133,3 +157,4 @@ function EducationData({id, deleteEdu, updateEdu, edu}) {
     )
 }
 
+export default Education;

@@ -1,26 +1,15 @@
 import "../styles/resume.css";
 import profilPic from '../../public/unnamed.webp';
 
-export function Resume() {
-
-    return (
-
-        <MainContainer/>
-
-
-    )
-};
-
-
-function MainContainer() {
+function Resume({contact, skills, education, works}) {
 
     return (
 
         <div className="main-container">
             <ImageProfil/>
-            <NameProfil name="Arthur" surname="Morgan"/>
-            <ContactSkillsEdu/>
-            <ProfilWorkXp/>
+            <NameProfil name={contact.name} surname={contact.surname}/>
+            <ContactSkillsEdu contact={contact} skills={skills} education={education}/>
+            <ProfilWorkXp profile={contact.statement} works={works}/>
         </div>
 
     );
@@ -50,7 +39,7 @@ function NameProfil({name, surname}) {
 };
 
 
-function Contact({phone, address, email, linkedIn}) {
+function Contact({contact}) {
 
     return (
 
@@ -60,16 +49,16 @@ function Contact({phone, address, email, linkedIn}) {
             <div className="contact-info-div">
 
                 <div className="info-title">Phone:</div>
-                <div className="info">{phone}</div>
+                <div className="info">{contact.tel}</div>
 
                 <div className="info-title">Address:</div>
-                <div className="info">{address}</div>
+                <div className="info">{contact.address}</div>
 
                 <div className="info-title">Email:</div>
-                <div className="info">{email}</div>
+                <div className="info">{contact.email}</div>
 
-                <div className="info-title">Phone:</div>
-                <div className="info">{linkedIn}</div>
+                <div className="info-title">LinkedIn:</div>
+                <div className="info">{contact.linkedIn}</div>
 
             </div>
         </div>
@@ -78,22 +67,20 @@ function Contact({phone, address, email, linkedIn}) {
 }
 
 
-function ContactSkillsEdu() {
+function ContactSkillsEdu({contact, skills, education}) {
 
     return (
 
         <div className="contact-skills-edu">
-            <Contact phone="04 32 234 789" address="Melbourne, Australia" email="youremail@gmail.com" linkedIn="linkedin/yourprofil.com"/>
-            <Skills/>
-            <Educations/>
+            <Contact contact={contact}/>
+            <Skills skills={skills}/>
+            <Educations education={education}/>
         </div>
 
     );
 };
 
-function Skills() {
-
-    let skillList = ["Html", "CSS", "JavaScript", "React", "Python", "Django", "Heroku", "AWS"]
+function Skills({skills}) {
 
     return (
 
@@ -101,7 +88,7 @@ function Skills() {
             <div className="title">SKILLS</div>
             <div className="skill-list">
                 
-                {skillList.map((skill) => <div key={[skill]} className="skill">{skill}</div>)}
+                {skills.map((skill) => <div key={skill.id} className="skill">{skill.skill}</div>)}
                 
             </div>
 
@@ -112,29 +99,7 @@ function Skills() {
 };
 
 
-function Educations() {
-
-    let educations = [
-
-        {
-            id: crypto.randomUUID(),
-            school: "University of Versailles",
-            location: "Versailles (France)",
-            degree: "Bachelor of Mathematics",
-            from: "2014",
-            to: "2017",
-        },
-
-        {
-            id: crypto.randomUUID(),
-            school: "Financia Business School",
-            location: "Paris (France)",
-            degree: "Master Degree of Corporate Finance",
-            from: "2019",
-            to: "2021",
-        },
-
-    ];
+function Educations({education}) {
 
     return (
 
@@ -144,7 +109,7 @@ function Educations() {
 
             <div className="education-list">
 
-                {educations.map((edu) => {
+                {education.map((edu) => {
 
                     return (
 
@@ -167,29 +132,27 @@ function Educations() {
 };
 
 
-function ProfilWorkXp() {
+function ProfilWorkXp({profile, works}) {
 
     return (
 
         <div className="profil-workxp">
-            <Profil/>
-
+            <Profil profile={profile}/>
+            <WorkXp works={works}/>
         </div>
 
     )
 }
 
 
-function Profil() {
+function Profil({profile}) {
 
     return (
         
         <div className="profil">
 
             <div className="title">PROFILE</div>
-            <div className="statement">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit maxime exercitationem autem minus eos mollitia? Soluta veniam ipsa tempore officiis dolores adipisci optio exercitationem! Recusandae eos similique ipsam nesciunt veritatis!
-            </div>
+            <div className="statement">{profile}</div>
             
         </div>
 
@@ -197,15 +160,34 @@ function Profil() {
 };
 
 
-function WorkXp() {
+function WorkXp({works}) {
 
     return (
 
         <div className="workxp">
+            <div className="title">WORK EXPERIENCE</div>
+            
+            <div className="work-list">
+                {works.map((work) => {
+                    return (
+
+                        <div key={work.id} className="work">
+                            <div className="work-position">{work.position}</div>
+                            <div className="info-work">{work.compagny} / {work.location} / {work.from}-{work.to}</div>
+                            <ul className="task-list">
+                                {work.tasks.map((task) => <li key={task.idTask}>{task.task}</li>)}
+                            </ul>
+                        </div>
+                        
+                    )
+                })}
+
+            </div>
             
         </div>
 
-
     )
 
-}
+};
+
+export default Resume;

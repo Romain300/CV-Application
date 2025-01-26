@@ -2,17 +2,23 @@ import { useState } from "react";
 import '../styles/contact.css';
 import { Textarea } from "./works";
 
-export function Contact() {
+
+//finish to upload photo, better layoutnan dadd button to dowmload PDF
+
+function Contact({ onSave }) {
     const [save, setSave] = useState(false);
 
     const [formData, setFormData] = useState({
         name:"", 
+        surname:"",
         tel:"",
         address:"",
         email:"",
         linkedin:"",
         statement: "",
+        photo: "",
     });
+    
 
     const handleInputChange = (event) => {
 
@@ -24,7 +30,10 @@ export function Contact() {
     const handleSaveButton = () => {
         
         setSave((previousState) => (!previousState));
-    }
+
+        if (!save && onSave) onSave(formData); 
+        
+    };
 
     return (
         <div className="form-container">
@@ -36,10 +45,13 @@ export function Contact() {
                 <form>
                     <div className="info-tab">
 
+                        <Input id="name" type="text" label="Name:" onChange={handleInputChange} value={formData["name"]}/>
+                        <Input id="surname" type="text" label="Surname:" onChange={handleInputChange} value={formData["surname"]}/>
                         <Input id="tel" type="tel" label="Phone:" onChange={handleInputChange} value={formData["tel"]}/>
                         <Input id="address" type="text" label="Address:" onChange={handleInputChange} value={formData["address"]}/>
                         <Input id="email" type="email" label="Email:" onChange={handleInputChange} value={formData["email"]}/>
                         <Input id="linkedin" type="text" label="LinkedIn:" onChange={handleInputChange} value={formData["linkedin"]}/>
+                        <Input id="photo" type="file" label="Profile picture:" value={formData["photo"]}/>
                         <Textarea id="statement" onChange={handleInputChange} value={formData["statement"]} label="Personal Statement:"/> 
 
                         <Button type="button" onClick={handleSaveButton} content="Save" className="save-button"/>
@@ -53,6 +65,8 @@ export function Contact() {
 
                 <div className="info-tab">
 
+                    <p><strong>Name:</strong> {formData["name"]}</p>
+                    <p><strong>Surname:</strong> {formData["surname"]}</p>
                     <p><strong>Phone:</strong> {formData["tel"]}</p>
                     <p><strong>Address:</strong> {formData["address"]}</p>
                     <p><strong>Email:</strong> {formData["email"]}</p>
@@ -108,5 +122,4 @@ export function Data({label, content}) {
     );
 };
 
-
-
+export default Contact;

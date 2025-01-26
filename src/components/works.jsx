@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button, Input } from "./contact.jsx";
 import addLogo from '../../public/add.svg';
 
-export function Works() {
+function Works({ onSave }) {
 
     const [works, setWorks] = useState([
 
@@ -21,22 +21,39 @@ export function Works() {
 
     const addWork = () => {
 
-        setWorks((prev) => ([...prev, {
+        setWorks((prev) => {
 
-            id: crypto.randomUUID(),
-            compagny: "",
-            location: "",
-            position: "",
-            from: "",
-            to: "",
-            tasks: [{idTask: crypto.randomUUID(), task: ""}],
+            const updatedList = [...prev, {
 
-        }]))
+                id: crypto.randomUUID(),
+                compagny: "",
+                location: "",
+                position: "",
+                from: "",
+                to: "",
+                tasks: [{idTask: crypto.randomUUID(), task: ""}],
+    
+            }];
+
+            onSave(updatedList);
+
+            return updatedList
+
+        });
+
     };
 
     const deleteWork = (id) => {
 
-        setWorks((prev) => (prev.filter((work) => work.id !== id)))
+        setWorks((prev) => {
+
+            const updatedList = prev.filter((work) => work.id !== id);
+
+            onSave(updatedList);
+
+            return updatedList;
+
+        });
 
     };
 
@@ -44,11 +61,18 @@ export function Works() {
 
         const newData = event.target.value;
         const idTarget = event.target.id.split("&")[1]; //splititng Id to match with the object 
-        setWorks((prev) => (prev.map((work) => work.id === id ? {...work, [idTarget]: newData}: work)))
+
+        setWorks((prev) => {
+
+            const updatedList = prev.map((work) => work.id === id ? {...work, [idTarget]: newData}: work);
+
+            onSave(updatedList);
+
+            return updatedList;
+
+        });
 
     };
-
-
 
     return (
         <div className="form-container">
@@ -210,4 +234,6 @@ export function Textarea({label, id, onChange, value}) {
         </div>
 
     )
-}
+};
+
+export default Works;
