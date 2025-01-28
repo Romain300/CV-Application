@@ -1,12 +1,12 @@
 import "../styles/resume.css";
-import profilPic from '../../public/unnamed.webp';
 
-function Resume({contact, skills, education, works}) {
+
+function Resume({contact, skills, education, works, printref}) {
 
     return (
 
-        <div className="main-container">
-            <ImageProfil/>
+        <div ref={printref} className="main-container">
+            <ImageProfil image={contact.photo}/>
             <NameProfil name={contact.name} surname={contact.surname}/>
             <ContactSkillsEdu contact={contact} skills={skills} education={education}/>
             <ProfilWorkXp profile={contact.statement} works={works}/>
@@ -16,13 +16,33 @@ function Resume({contact, skills, education, works}) {
 };
 
 
-function ImageProfil() {
+function ImageProfil({ image }) {
+
+    let isFile = false;
+
+    if( image instanceof File ) isFile = true;
 
     return (
 
-        <img className="image-profil" src={profilPic} alt="image profile"/>
+        <>
+
+            {isFile && (
+
+            <img className="image-profil" src={URL.createObjectURL(image)} alt="image profile"/>
+
+            )}
+
+            {!isFile && (
+
+            <img className="image-profil" src={image} alt="image profile"/>
+
+            )}
+
+
+        </>
 
     );
+
 };
 
 function NameProfil({name, surname}) {

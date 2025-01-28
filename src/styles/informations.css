@@ -22,8 +22,19 @@
   background-color: #007BFF;
 }
 
-.delete-button {
+.delete-button,
+.download-button {
  background-color: #dc3545;
+}
+
+.download-button {
+  width: 10rem;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  border-radius: 1rem;
+  font-size: 1rem;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
 }
 
 button:hover {
@@ -66,15 +77,51 @@ textarea:focus {
   gap: 0.2rem;
 }
 
+
+.desktop-layout {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 30% 70%;
+  width: 210mm;
+  height: 297mm;
+  font-size: 16px;
+}
+
+.github-link {
+  width: 3rem;
+  height: auto;
+}
+
+.link-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
 @media (max-width: 1100px) {
 
   .form-container {
 
     width: 100%;
     
-
   }
 
-  
+}
+
+
+@media (max-width: 768px) {
+
+  input,
+  textarea {
+    width: 10rem;
+  }
+
+  .download-button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
 
 }

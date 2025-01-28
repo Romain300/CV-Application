@@ -27,5 +27,13 @@
     align-items: center;
   }
 
-  
+  .profil-pic {
+    width: 5rem;
+    height: auto;
+  }
 
+  .photo-saved {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }

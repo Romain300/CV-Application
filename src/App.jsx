@@ -3,10 +3,18 @@ import Skills from "./components/skills";
 import Education from "./components/education";
 import Resume from "./components/resume";
 import Works from "./components/works";
+import { Button } from "./components/contact";
 import "./styles/informations.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import profilPic from '../public/unnamed.webp';
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import gitHubLogo from '../public/github-brands-solid.svg';
+
 
 function App() {
+
+  const printRef = useRef();
 
   const [contact, setContact] = useState(
 
@@ -18,7 +26,9 @@ function App() {
       address:"Sydney, Australia",
       email:"youremail@gmail.com",
       linkedIn:"your/linkedIn.com",
-      statement: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit maxime exercitationem autem minus eos mollitia? Soluta veniam ipsa tempore officiis dolores adipisci optio exercitationem! Recusandae eos similique ipsam nesciunt veritatis!",  
+      statement: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit maxime exercitationem autem minus eos mollitia? Soluta veniam ipsa tempore officiis dolores adipisci optio exercitationem! Recusandae eos similique ipsam nesciunt veritatis!",
+      photo: profilPic,
+
     }
 
   );
@@ -123,19 +133,55 @@ function App() {
 
   };
 
+  const handlePrint = () => {
+
+    const containerToPrint = printRef.current;
+    containerToPrint.className = "desktop-layout";
+
+    html2canvas(containerToPrint, {
+
+      scale: 3,
+
+    }).then((canvas) => {
+
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF();
+
+      pdf.addImage(imgData, "PNG", 0, 0, 210, 297);
+
+      pdf.save("resume.pdf");
+
+    });
+
+    containerToPrint.className = "main-container";
+
+  };
+
 
   return (
 
     <main>
 
-      <div>
+      <div className="form-resume">
         <Contact onSave={saveContact}/>
         <Skills onSave={saveSkills}/>
         <Education onSave={saveEducation}/>
         <Works onSave = {saveWorks}/>
       </div>
-      <div>
-        <Resume contact={contact} skills={skills} education={education} works={works}/>
+      <div className="resume-print-button-div">
+        <Resume printref = {printRef} contact={contact} skills={skills} education={education} works={works}/>
+        <Button type="button" content="Download PDF" onClick={handlePrint} className="download-button"/>
+        <div className="info-author">
+          <p>This app was made by Romain300</p>
+          <div className="link-social">
+            <p>My GitHub:</p>
+            <a href="https://github.com/Romain300/">
+              <img className="github-link" src={gitHubLogo} alt="Romain300 GitHub account"/>
+            </a>
+          </div>
+          
+        </div>
       </div>
 
     </main>

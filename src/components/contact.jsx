@@ -3,9 +3,11 @@ import '../styles/contact.css';
 import { Textarea } from "./works";
 
 
-//finish to upload photo, better layoutnan dadd button to dowmload PDF
-
+//finish to release photo when change , better layout
 function Contact({ onSave }) {
+
+    const [profilPic, setProfilPic] = useState(null);
+
     const [save, setSave] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -22,10 +24,29 @@ function Contact({ onSave }) {
 
     const handleInputChange = (event) => {
 
-        const { id, value } = event.target;
-        setFormData((previousData) => ({...previousData, [id]: value}))
+        const { id, value, files} = event.target;
 
-    }
+        if (id === "photo" && files) {
+
+            const file = files[0];
+
+            if (profilPic) URL.revokeObjectURL(profilPic);
+
+            const newProfilPic = URL.createObjectURL(file);
+
+            setProfilPic(newProfilPic);
+
+            setFormData((previousData) => ({...previousData, [id]: file }))
+
+
+        } else {
+
+            setFormData((previousData) => ({...previousData, [id]: value }))
+
+        }
+
+
+    };
 
     const handleSaveButton = () => {
         
@@ -51,9 +72,9 @@ function Contact({ onSave }) {
                         <Input id="address" type="text" label="Address:" onChange={handleInputChange} value={formData["address"]}/>
                         <Input id="email" type="email" label="Email:" onChange={handleInputChange} value={formData["email"]}/>
                         <Input id="linkedin" type="text" label="LinkedIn:" onChange={handleInputChange} value={formData["linkedin"]}/>
-                        <Input id="photo" type="file" label="Profile picture:" value={formData["photo"]}/>
+                        <Input id="photo" onChange={handleInputChange} type="file" label="Profile picture:" />
                         <Textarea id="statement" onChange={handleInputChange} value={formData["statement"]} label="Personal Statement:"/> 
-
+                        
                         <Button type="button" onClick={handleSaveButton} content="Save" className="save-button"/>
 
                     </div>
@@ -71,6 +92,15 @@ function Contact({ onSave }) {
                     <p><strong>Address:</strong> {formData["address"]}</p>
                     <p><strong>Email:</strong> {formData["email"]}</p>
                     <p><strong>LinkedIn:</strong> {formData["linkedin"]}</p>
+                    <div className="photo-saved">
+                        <strong>Photo:</strong>
+                            {formData["photo"] && (
+                                <img 
+                                className="profil-pic"
+                                src={profilPic} 
+                                alt="profil-pic"/>
+                            )}
+                    </div>
                     <p><strong>Statement:</strong> {formData["statement"]}</p>
 
                     <Button type="button" onClick={handleSaveButton} content="Edit" className="edit-button"/>
