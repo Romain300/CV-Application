@@ -163,9 +163,7 @@
 }
 
 li {
-
     list-style-position:inside;
-
 }
 
 .workxp {
@@ -175,6 +173,17 @@ li {
     gap: 0.5rem;
     
 }
+
+.task-list-display {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.task-list-display::before {
+    content: "•";
+    font-size: 1.5em;
+}
+
 
 
 @media (max-width: 768px) {

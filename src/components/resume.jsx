@@ -195,7 +195,13 @@ function WorkXp({works}) {
                             <div className="work-position">{work.position}</div>
                             <div className="info-work">{work.compagny} / {work.location} / {work.from}-{work.to}</div>
                             <ul className="task-list">
-                                {work.tasks.map((task) => <li key={task.idTask}>{task.task}</li>)}
+                                {work.tasks.map((task) => (
+
+                                    <li key={task.idTask} className="task-list-display">
+                                        <div>{task.task}</div>
+                                    </li>
+
+                                ))}
                             </ul>
                         </div>
                         

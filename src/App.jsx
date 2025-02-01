@@ -140,15 +140,15 @@ function App() {
 
     html2canvas(containerToPrint, {
 
-      scale: 3,
+      scale: 2,
 
     }).then((canvas) => {
 
-      const imgData = canvas.toDataURL("image/png");
+      const imgData = canvas.toDataURL("image/jpeg");
 
       const pdf = new jsPDF();
 
-      pdf.addImage(imgData, "PNG", 0, 0, 210, 297);
+      pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
 
       pdf.save("resume.pdf");
 
@@ -169,9 +169,11 @@ function App() {
         <Education onSave={saveEducation}/>
         <Works onSave = {saveWorks}/>
       </div>
+
       <div className="resume-print-button-div">
         <Resume printref = {printRef} contact={contact} skills={skills} education={education} works={works}/>
         <Button type="button" content="Download PDF" onClick={handlePrint} className="download-button"/>
+
         <div className="info-author">
           <p>This app was made by Romain300</p>
           <div className="link-social">
@@ -180,8 +182,8 @@ function App() {
               <img className="github-link" src={gitHubLogo} alt="Romain300 GitHub account"/>
             </a>
           </div>
-          
         </div>
+        
       </div>
 
     </main>
